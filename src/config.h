@@ -5,7 +5,7 @@
 const int up_button_pin = GPIO_NUM_39;     // the number of the pushbutton pin
 const int down_button_pin = GPIO_NUM_34;     // the number of the pushbutton pin
 const int turbo_state_pin = GPIO_NUM_35;
-const int ecu_state_pin = GPIO_NUM_32;
+const int ecu_state_pin = GPIO_NUM_36;
 
 const int gear_control_1 =  GPIO_NUM_17;      // working
 const int gear_control_2 =  GPIO_NUM_16;      // working
