@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -81,20 +82,24 @@ void clutch_engage() // function to detect gear change down
 void update_display(int number) // function to update the number on the display
 {
 
+  Serial.println("Updating display");
   display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  display.print("Gear ");
   display.print(number);
-  if (ecu_state_pin)
+  if (digitalRead(ecu_state_pin))
   {
     display.print(" E");
   }
-  if (turbo_state_pin)
+  if (digitalRead(turbo_state_pin))
   {
     display.print(" T");
   }
-  display.println(" 🚙");
+  //display.println("");
+
+display.display(); 
 }
 
 
@@ -102,18 +107,24 @@ void setup()
 {
 
   Serial.begin(115200);
+  Wire.begin(i2c_sda, i2c_scl);
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
   { // Address 0x3C for 128x32 display
     Serial.println(F("SSD1306 display allocation failed"));
+    for(;;);
   }
+  delay(2000);
 
-  // Show initial display buffer contents on the screen --
-  // the library initializes this with an Adafruit splash screen.
-  display.display();
-  delay(2000); // Pause for 2 seconds
-  // Clear the buffer
   display.clearDisplay();
+
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.setCursor(0, 10);
+  // Display static text
+  display.println("Starting");
+  display.display(); 
+  delay(2000);
 
   // generic esp32 lib
   // CAN_cfg.speed = CAN_SPEED_125KBPS;

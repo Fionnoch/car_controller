@@ -14,8 +14,11 @@ const int ecu_control = GPIO_NUM_19;        //working
 
 const int clutch_control = GPIO_NUM_26;      //working
 
+const int i2c_sda = GPIO_NUM_33;
+const int i2c_scl = GPIO_NUM_32;
+
 // Screen Configurations
 
 const int SCREEN_WIDTH = 128; // OLED display width, in pixels
 const int SCREEN_HEIGHT = 32; // OLED display height, in pixels
-const int OLED_RESET = 4; // Reset pin # (or -1 if sharing Arduino reset pin)
+const int OLED_RESET = -1; // Reset pin # (or -1 if sharing Arduino reset pin)
